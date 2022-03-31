@@ -1,6 +1,7 @@
 #!/bin/bash
 
 dataPath=$(bash ini.sh getValue dataPath)
+ids=$(bash ini.sh getValue idsFile)
 
 while read line; do
   while true; do
@@ -10,4 +11,4 @@ while read line; do
     echo "</collection>" >>$dataPath$line'.xml'
     xml_pp $dataPath$line'.xml' && break
   done
-done </home/tomas/locid
+done <$ids
