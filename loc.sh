@@ -1,11 +1,13 @@
 #!/bin/bash
 
+dataPath=$(bash ini.sh getValue dataPath)
+
 while read line; do
   while true; do
     echo $line
-    echo "<collection>" >'/home/tomas/harvester/loc/'$line'.xml'
-    ./yaz-client.sh $line
-    echo "</collection>" >>'/home/tomas/harvester/loc/'$line'.xml'
-    xml_pp '/home/tomas/harvester/loc/'$line'.xml' && break
+    echo "<collection>" >$dataPath$line'.xml'
+    ./yaz-client.sh $line $dataPath
+    echo "</collection>" >>$dataPath$line'.xml'
+    xml_pp $dataPath$line'.xml' && break
   done
-done </home/tomas/locids
+done </home/tomas/locid

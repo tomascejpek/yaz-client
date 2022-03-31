@@ -1,17 +1,20 @@
 #!/usr/bin/expect -f
 
+#id
 set id [lindex $argv 0]
+# folder for results
+set dataPath [lindex $argv 1]
 set timeout 2
 
 set times 0;
 while { $times < 1 } {
-  spawn /usr/bin/yaz-client -m /home/tomas/harvester/loc/$id.xml lx2.loc.gov:210/LCDB
+  spawn /usr/bin/yaz-client -m $dataPath$id.xml lx2.loc.gov:210/LCDB
   expect -re ".*Connecting...OK.*"
   exp_send "format xml\r"
   exp_send "find @attr  1=9 $id\r"
   expect {
     -re ".*Number of hits: 0.*" {
-      set file [open /home/tomas/harvester/loc/$id.xml w]
+      set file [open $dataPath$id.xml w]
       puts $file "<collection>
 <record xmlns=\"http://www.loc.gov/MARC21/slim\">
   <datafield tag=\"010\" ind1=\" \" ind2=\" \">
