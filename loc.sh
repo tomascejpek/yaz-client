@@ -6,12 +6,13 @@ format=$(bash ini.sh getValue format)
 
 while read line; do
   while true; do
+    resultFile="$dataPath$line.$format"
     echo $line
     ./yaz-client.sh $line $dataPath $format
     if [ "$format" == "xml" ]; then
-      echo '<collection>' | cat - $dataPath$line.$format >temp && mv temp $dataPath$line.$format # first line
-      echo "</collection>" >>$dataPath$line.$format                                              # end of file
-      xml_pp $dataPath$line.$format && break
+      echo '<collection>' | cat - $resultFile >temp && mv temp $resultFile # first line
+      echo "</collection>" >>$resultFile                                   # end of file
+      xml_pp $resultFile && break
     else
       break
     fi

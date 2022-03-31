@@ -8,16 +8,17 @@ set dataPath [lindex $argv 1]
 set format [lindex $argv 2]
 
 set timeout 2
-
+set resultFile $dataPath$id.$format
 set times 0;
+
 while { $times < 1 } {
-  spawn /usr/bin/yaz-client -m $dataPath$id.$format lx2.loc.gov:210/LCDB
+  spawn /usr/bin/yaz-client -m $resultFile lx2.loc.gov:210/LCDB
   expect -re ".*Connecting...OK.*"
   exp_send "format $format\r"
   exp_send "find @attr  1=9 $id\r"
   expect {
     -re ".*Number of hits: 0.*" {
-      set file [open $dataPath$id.$format w]
+      set file [open $resultFile w]
       puts $file "<record xmlns=\"http://www.loc.gov/MARC21/slim\">
   <datafield tag=\"010\" ind1=\" \" ind2=\" \">
     <subfield code=\"a\">$id</subfield>
