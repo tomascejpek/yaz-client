@@ -36,9 +36,6 @@ while { $times < 1 } {
       exit
     }
     -re ".*Not connected yet.*" {
-      set file [open /home/tomas/harvester/not-connected.txt a]
-      puts $file "$id"
-      close $file
       sleep 5
     }
   }
