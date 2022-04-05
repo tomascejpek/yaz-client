@@ -15,7 +15,7 @@ while { $times < 1 } {
   spawn /usr/bin/yaz-client -m $resultFile lx2.loc.gov:210/LCDB
   expect -re ".*Connecting...OK.*"
   exp_send "format $format\r"
-  exp_send "find @attr  1=9 $id\r"
+  exp_send "find @attr  1=9 \"$id\"\r"
   expect {
     -re ".*Number of hits: 0.*" {
       set file [open $resultFile w]
