@@ -14,7 +14,7 @@ while read line; do
       echo '<collection>' | cat - $resultFile >temp && mv temp $resultFile # first line
       echo "</collection>" >>$resultFile                                   # end of file
       xml_pp $resultFile && break
-      >$resultFile
+      rm $resultFile
     else
       break
     fi
