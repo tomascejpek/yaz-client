@@ -11,9 +11,12 @@ while read line; do
     echo $line
     ./yaz-client.sh $line $dataPath $format
     if [ "$format" == "xml" ]; then
-      echo '<collection>' | cat - $resultFile >temp && mv temp $resultFile # first line
-      echo "</collection>" >>$resultFile                                   # end of file
-      xml_pp $resultFile && break
+      if [ -s $resultFile ]; then
+        # The file is not empty
+        echo '<collection>' | cat - $resultFile >temp && mv temp $resultFile # first line
+        echo "</collection>" >>$resultFile                                   # end of file
+        xml_pp $resultFile && break
+      fi
       rm $resultFile
     else
       break
