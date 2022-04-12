@@ -39,5 +39,5 @@ while { $times < 1 } {
       sleep 5
     }
   }
+  exp_send "quit\r"
 }
-exp_send "close\r"
