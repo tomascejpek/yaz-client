@@ -11,7 +11,7 @@ set timeout 2
 set resultFile $dataPath$id.$format
 set times 0;
 
-while { $times < 1 } {
+while { $times < 5 } {
   spawn /usr/bin/yaz-client -m $resultFile lx2.loc.gov:210/LCDB
   expect -re ".*Connecting...OK.*"
   exp_send "format $format\r"
@@ -32,11 +32,11 @@ while { $times < 1 } {
     }
     -re ".*Number of hits:.*" {
       exp_send "show all\r"
-      expect -re ".*Records: .*"
+      expect -re ".*Elapsed.*"
       exit
     }
     -re ".*Not connected yet.*" {
-      sleep 5
+      sleep 3
     }
   }
   exp_send "quit\r"
