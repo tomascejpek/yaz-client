@@ -2,3 +2,5 @@ logPath=
 dataPath=
 idsFile=
 format=
+repeat=
+sleep=

@@ -6,12 +6,17 @@ set id [lindex $argv 0]
 set dataPath [lindex $argv 1]
 # format
 set format [lindex $argv 2]
+#repeat
+set repeat [lindex $argv 3]
+#sleep
+set sleep [lindex $argv 4]
 
-set timeout 2
+
+set timeout $sleep
 set resultFile $dataPath$id.$format
 set times 0;
 
-while { $times < 5 } {
+while { $times < $repeat } {
   spawn /usr/bin/yaz-client -m $resultFile lx2.loc.gov:210/LCDB
   expect -re ".*Connecting...OK.*"
   exp_send "format $format\r"
@@ -36,7 +41,7 @@ while { $times < 5 } {
       exit
     }
     -re ".*Not connected yet.*" {
-      sleep 3
+      sleep $sleep
     }
   }
   exp_send "quit\r"
